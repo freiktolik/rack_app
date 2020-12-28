@@ -6,9 +6,7 @@ class PostsController < BaseController
   #
   def index
     @title = "So many posts"
-    @posts = (1..5).map do |i|
-      OpenStruct.new(id: i, name: "post-#{i}")
-    end
+    @posts = Post.all
     build_response render_template
   end
 
@@ -18,7 +16,7 @@ class PostsController < BaseController
   def show
     post_name = params["name"] || "Post-#{params[:id]}"
     @title = "#{post_name}'s page"
-    @post = OpenStruct.new(id: params[:id], name: post_name)
+    @post = Post.find(params[:id])
     build_response render_template
   end
 
@@ -33,6 +31,8 @@ class PostsController < BaseController
   # not implemented for now
   #
   def create
-    redirect_to "/posts"
+    post = Post.new(name: params['post']['name'])
+    post.save
+    redirect_to "/posts/#{post.id}"
   end
 end

@@ -4,7 +4,11 @@
     <div>
       <h1><%= @title %></h1>
       <form action="/posts" method="POST">
-        <!-- we'll worry about the form in the next post -->
+        <div>
+          <label for="post_name">The post's name</label>
+          <input type="text" name="post[name]" id="post_name">
+        </div>
+        <input type="submit" name="commit" value="create">
       </form>
     </div>
   </body>
