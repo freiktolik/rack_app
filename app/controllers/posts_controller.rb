@@ -5,19 +5,28 @@ class PostsController < BaseController
   # GET /posts
   #
   def index
-    build_response post_page("this should be a list of posts")
+    @title = "So many posts"
+    @posts = (1..5).map do |i|
+      OpenStruct.new(id: i, name: "post-#{i}")
+    end
+    build_response render_template
   end
 
   # GET /posts/:id
+  # GET /posts/:id?name=Optional%20Custom%20Name
   #
   def show
-    build_response post_page("this should show post ##{params[:id]}")
+    post_name = params["name"] || "Post-#{params[:id]}"
+    @title = "#{post_name}'s page"
+    @post = OpenStruct.new(id: params[:id], name: post_name)
+    build_response render_template
   end
 
   # GET /posts/new
   #
   def new
-    build_response post_page("a page to create a new post")
+    @title = "New post"
+    build_response render_template
   end
 
   # POST /posts
@@ -25,19 +34,5 @@ class PostsController < BaseController
   #
   def create
     redirect_to "/posts"
-  end
-
-  private
-
-  def post_page(message)
-    <<~HTML
-      <html>
-        <head><title>A Rack Demo</title></head>
-        <body>
-          <h1>This is PostsController##{params[:action]}</h1>
-          <p>#{message}</p>
-        </body>
-      </html>
-    HTML
   end
 end

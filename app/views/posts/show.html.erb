@@ -1,0 +1,12 @@
+<html>
+  <%= render_partial "base/_head.html.erb" %>
+  <body>
+    <div>
+      <h1><%= @title %></h1>
+      <p><a href="/posts">Back to the list of posts</a></p>
+      <p>
+        Post #id <%= @post.id %>, name: <strong><%= @post.name %></strong>
+      </p>
+    </div>
+  </body>
+</html>

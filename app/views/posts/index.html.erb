@@ -1,0 +1,18 @@
+<html>
+  <%= render_partial "base/_head.html.erb" %>
+  <body>
+    <div>
+      <h1><%= @title %></h1>
+      <p><a href="/posts/new">Create a new post</a></p>
+      <ul>
+        <% @posts.each do |post| %>
+          <li>
+            <a href="/posts/<%= post.id %>">
+              <%= "#{post.id} - #{post.name}" %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </body>
+</html>
